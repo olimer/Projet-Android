@@ -1,5 +1,6 @@
 package com.example.trema1032138.appgyroscope;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -9,9 +10,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import static android.R.attr.gravity;
+
 public class MainActivity extends AppCompatActivity {
 
      TextView TextChange,TextX,TextY,TextZ;
+    private SensorManager mSensorManager;
+    private Sensor mSensor;
     /*private static final float NS2S = 1.0f / 1000000000.0f;
     private final float[] deltaRotationVector = new float[4];
     private float timestamp;*/
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         /*TextX = (TextView)findViewById(R.id.X);
         TextY = (TextView)findViewById(R.id.Y);
         TextZ = (TextView)findViewById(R.id.Z);*/
+
         SensorManager sensorManager =(SensorManager)getSystemService(SENSOR_SERVICE);
         Sensor gyroscopeSensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
 
@@ -34,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
                 if(sensorEvent.values[0]>2.0f) { // anticlockwise
                     getWindow().getDecorView().setBackgroundColor(Color.GREEN);
                     TextChange.setText("En arriere");
+
+
                 } else if(sensorEvent.values[0] < -2.0f) { // clockwise
                     getWindow().getDecorView().setBackgroundColor(Color.BLACK);
                     TextChange.setText("En avant");
